@@ -3,6 +3,7 @@ import { paginationHelpers } from "../../../helpers/paginationHelper";
 import { UserSearchFields } from "./user.constant";
 import { SortOrder } from "mongoose";
 import userModel from "./user.model";
+import { IUser } from "./user.interface";
 
 // * get all user
 const getAllUser = async (
@@ -60,6 +61,13 @@ const getAllUser = async (
   };
 };
 
+// * Get Single User
+const getSingleUser = async (id: string): Promise<IUser | null> => {
+  const result = await userModel.findById({ _id: id });
+  return result;
+};
+
 export const userService = {
   getAllUser,
+  getSingleUser,
 };
