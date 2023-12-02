@@ -1,25 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NextFunction, Request, Response } from "express";
-import { CatchAsyncError } from "../../middleware/catchAsyncErrors";
+import { Request, Response } from "express";
+
 import { userService } from "./user.servece";
-import globalErrorHandler from "../../utils/globalErrorHandler";
 import httpStatus from "http-status";
-const getAllUser = CatchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const result = await userService.getAllUser();
-      res.status(200).json({
-        success: true,
-        result,
-      });
-    } catch (error: any) {
-      console.log(error);
-      return next(
-        new globalErrorHandler(error.message, httpStatus.BAD_REQUEST),
-      );
-    }
-  },
-);
+import sendResponse from "../../../shared/sendResponse";
+import { IUser } from "./user.interface";
+import pick from "../../../shared/pick";
+import catchAsync from "../../../shared/catchAsync";
+import { UserFilterableFields } from "./user.constant";
+import { paginationFields } from "../../../constants/paginationConstants";
+
+//* get all User
+const getAllUser = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, UserFilterableFields);
+  const paginationOptions = pick(req.query, paginationFields);
+
+  const result = await userService.getAllUser(filters, paginationOptions);
+
+  sendResponse<IUser[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User retrieved successfully",
+    meta: result?.meta,
+    data: result?.data,
+  });
+});
 
 export const userController = {
   getAllUser,
