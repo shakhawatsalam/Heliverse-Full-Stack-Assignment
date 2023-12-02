@@ -5,6 +5,11 @@ import { SortOrder } from "mongoose";
 import userModel from "./user.model";
 import { IUser } from "./user.interface";
 
+// * Create User
+const createUser = async (payload: IUser): Promise<IUser | null> => {
+  const result = await userModel.create(payload);
+  return result;
+};
 // * get all user
 const getAllUser = async (
   filters: any, //Partial<ParsedQs>
@@ -76,4 +81,5 @@ export const userService = {
   getAllUser,
   getSingleUser,
   deleteSingleUser,
+  createUser,
 };

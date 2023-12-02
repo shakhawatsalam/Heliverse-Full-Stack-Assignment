@@ -9,6 +9,19 @@ import catchAsync from "../../../shared/catchAsync";
 import { UserFilterableFields } from "./user.constant";
 import { paginationFields } from "../../../constants/paginationConstants";
 
+// * Create User
+const createUser = catchAsync(async (req: Request, res: Response) => {
+  const { ...UserData } = req.body;
+
+  const result = await userService.createUser(UserData);
+
+  sendResponse<IUser>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User Created successfully",
+    data: result,
+  });
+});
 //* get all User
 const getAllUser = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, UserFilterableFields);
@@ -56,4 +69,5 @@ export const userController = {
   getAllUser,
   getSingleUser,
   deleteSingleUser,
+  createUser,
 };
