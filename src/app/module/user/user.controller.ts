@@ -51,6 +51,21 @@ const getSingleUser = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+
+// * Update Single User
+const updateSingleUser = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const upDatedData = req.body;
+
+  const result = await userService.updateSingleUser(id, upDatedData);
+
+  sendResponse<IUser>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User retrieved successfully",
+    data: result,
+  });
+});
 // * Get Single User
 const deleteSingleUser = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
@@ -68,6 +83,7 @@ const deleteSingleUser = catchAsync(async (req: Request, res: Response) => {
 export const userController = {
   getAllUser,
   getSingleUser,
+  updateSingleUser,
   deleteSingleUser,
   createUser,
 };

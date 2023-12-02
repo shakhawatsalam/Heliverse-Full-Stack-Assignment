@@ -10,8 +10,13 @@ router.post(
   validateRequest(UserValidation.createUserZodSchema),
   userController.createUser,
 );
-router.post("/", userController.getAllUser);
+router.get("/", userController.getAllUser);
 router.get("/:id", userController.getSingleUser);
+router.put(
+  "/:id",
+  validateRequest(UserValidation.updateUserZodSchema),
+  userController.updateSingleUser,
+);
 router.delete("/:id", userController.deleteSingleUser);
 
 export const UserRoute = router;
