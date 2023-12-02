@@ -21,7 +21,7 @@ const createUserZodSchema = z.object({
     domain: z.string({
       required_error: "Domain is Required",
     }),
-    available: z.string({
+    available: z.boolean({
       required_error: "Available is Required",
     }),
   }),
