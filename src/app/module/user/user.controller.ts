@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
-
 import { userService } from "./user.servece";
 import httpStatus from "http-status";
 import sendResponse from "../../../shared/sendResponse";
@@ -35,7 +34,20 @@ const getSingleUser = catchAsync(async (req: Request, res: Response) => {
   sendResponse<IUser>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Student retrieved successfully",
+    message: "User retrieved successfully",
+    data: result,
+  });
+});
+// * Get Single User
+const deleteSingleUser = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  const result = await userService.deleteSingleUser(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User Deleted successfully",
     data: result,
   });
 });
@@ -43,4 +55,5 @@ const getSingleUser = catchAsync(async (req: Request, res: Response) => {
 export const userController = {
   getAllUser,
   getSingleUser,
+  deleteSingleUser,
 };
