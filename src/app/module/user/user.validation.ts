@@ -36,7 +36,7 @@ const updateUserZodSchema = z.object({
     gender: z.string().optional(),
     avatar: z.string().optional(),
     domain: z.string().optional(),
-    available: z.string().optional(),
+    available: z.boolean().optional(),
   }),
 });
 

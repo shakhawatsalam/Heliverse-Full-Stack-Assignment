@@ -54,6 +54,7 @@ const getAllUser = async (
     .sort(sortCondition) // { createdAt: 'desc' } = default
     .skip(skip)
     .limit(limit);
+  // .select(["domain"]);
 
   const total = await userModel.countDocuments(whereConditions);
   return {

@@ -4,7 +4,7 @@ import config from "./config";
 
 async function bootstrap() {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/heliverse");
+    await mongoose.connect(process.env.DATABASE_URL as string);
     console.log("🚀🚀 Data base Connected Successfully");
     app.listen(config.port, () => {
       console.log(`Example app listening on port ${config.port}`);
