@@ -7,6 +7,11 @@ const CreateTeam = async (payload: ITeam): Promise<ITeam | null> => {
   return result;
 };
 
+// * Get All Team
+const getAllTeam = async (): Promise<ITeam[] | null> => {
+  const result = await TeamModel.find();
+  return result;
+};
 // * Get Single Team
 const getSingleTeam = async (id: string): Promise<ITeam | null> => {
   const result = await TeamModel.findById({ _id: id });
@@ -16,4 +21,5 @@ const getSingleTeam = async (id: string): Promise<ITeam | null> => {
 export const TeamService = {
   CreateTeam,
   getSingleTeam,
+  getAllTeam,
 };
